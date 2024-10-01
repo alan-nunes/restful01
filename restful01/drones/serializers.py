@@ -33,7 +33,7 @@ class CompetitionSerializer(serializers.HyperlinkedModelSerializer):
 class PilotSerializer(serializers.HyperlinkedModelSerializer):
     competitions = CompetitionSerializer(many=True, read_only=True)
     gender = serializers.ChoiceField(choices=Pilot.GENDER_CHOICES)
-    gender_descripiton = serializers.CharField(source="get_gender_display", read_only=True)
+    gender_description = serializers.CharField(source="get_gender_display", read_only=True)
     
     class Meta:
         model = Pilot
