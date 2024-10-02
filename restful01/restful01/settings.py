@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'toys.apps.ToysConfig',
     'drones.apps.DronesConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -126,5 +127,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "drones.pagination.LimitOffsetPaginationWithUpperBound", "PAGE_SIZE": 4,
+    "DEFAULT_PAGINATION_CLASS": "drones.pagination.LimitOffsetPaginationWithUpperBound", 
+    "PAGE_SIZE": 4,
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.OrderingFilter",
+        "rest_framework.filters.SearchFilter",
+    ),
 }
