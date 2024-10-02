@@ -6,8 +6,8 @@ router = SimpleRouter()
 router.register("drone-categories", views.DroneCategoryViewSet, basename="dronecategory")
 
 urlpatterns = [
-    path("", views.ApiRoot.as_view(), name=views.ApiRoot.name), 
     path("", include(router.urls)),
+    path("", views.ApiRoot.as_view(), name=views.ApiRoot.name),  
     path("drones/", views.DroneList.as_view(), name=views.DroneList.name),
     path("drones/<int:pk>/", views.DroneDetail.as_view(), name=views.DroneDetail.name),
     path("pilots/", views.PilotList.as_view(), name=views.PilotList.name),

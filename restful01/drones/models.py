@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class DronesCategory(models.Model):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, unique=True)
     
     class Meta:
         ordering = ("name",)
@@ -11,7 +11,7 @@ class DronesCategory(models.Model):
             return self.name
 
 class Drone(models.Model):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250,unique=True)
     drone_category = models.ForeignKey(
         DronesCategory, related_name="drones", on_delete=models.CASCADE
     )
@@ -34,7 +34,7 @@ class Pilot(models.Model):
         (FEMALE, "FEMALE"),
     ) 
     
-    name = models.CharField(max_length=150, blank=False, default="")
+    name = models.CharField(max_length=150, blank=False, unique=True)
     gender = models.CharField(
         max_length=2,
         choices=GENDER_CHOICES,
