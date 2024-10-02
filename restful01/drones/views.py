@@ -13,26 +13,19 @@ from rest_framework import viewsets
 from drones.filters import CompetitionFilter
 # Create your views here.
 
-class ApiRoot(generics.GenericAPIView):
-    name = "api-root"
-    
-    def get(self, request, *agrs, **kwargs):
-        return Response(
-            {
-                "drone-categories" : reverse("dronecategory-list", request=request),
-                "drones": reverse(DroneList.name, request=request),
-                "pilots": reverse(PilotList.name, request=request),
-                "competitions": reverse(CompetitionList.name, request=request),
-            }
-        )
-
-class DroneCategoryViewSet(viewsets.ModelViewSet):
+"""class DroneCategoryViewSet(viewsets.ModelViewSet):
     queryset = DronesCategory.objects.all()
     serializer_class = DroneCategorySerializer
+    #name = "dronecategory-list"
      # O 'name' não é necessário aqui porque o router gera os nomes automaticamente
      
     search_fields = ("^name",)
-    ordering_fields = ("name")
+    ordering_fields = ("name")"""
+    
+class DroneCategoryList(generics.ListCreateAPIView):
+    queryset = DronesCategory.objects.all()
+    serializer_class = DroneCategorySerializer
+    name = "dronecategory-list"   
     
 class DroneList(generics.ListCreateAPIView):
     queryset = Drone.objects.all()
@@ -54,6 +47,12 @@ class DroneDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Drone.objects.all()
     serializer_class = DroneSerializer
     name = "drone-detail"
+    
+class DroneCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = DronesCategory.objects.all()
+    serializer_class = DroneCategorySerializer
+    name = "dronecategory-detail"   
+    
     
 class PilotList(generics.ListCreateAPIView):
     queryset = Pilot.objects.all()
@@ -88,3 +87,16 @@ class CompetitionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Competition.objects.all()
     serializer_class = PilotCompetitonSerializer
     name = "competition-detail"
+    
+class ApiRoot(generics.GenericAPIView):
+    name = "api-root"
+    
+    def get(self, request, *agrs, **kwargs):
+        return Response(
+            {
+                "drone-categories": reverse(DroneCategoryList, request=request),
+                "drones": reverse(DroneList.name, request=request),
+                "pilots": reverse(PilotList.name, request=request),
+                "competitions": reverse(CompetitionList.name, request=request),
+            }
+        )
