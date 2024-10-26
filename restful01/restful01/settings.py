@@ -37,10 +37,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Habilita Django REST Frameowrk
     'rest_framework',
+    
+    # Habilita Toys application
     'toys.apps.ToysConfig',
+    
+    # Habilita Drones application
     'drones.apps.DronesConfig',
+    
+    # Django Filters
     'django_filters',
+
+    # Token authentication
+    'rest_framework.authtoken',
+    
+    # OpenAPI
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -140,5 +154,38 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
-    )
+    ),
+    
+    "DEFAULT_THROTTLE_CLASSES":(
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ),
+    
+    "DEFAULT_THROTTLE_RATES":{
+        "anon": "3/hour",
+        "user": "10/hour",
+        "drones": "20/hour",
+        "pilots": "15/hour",
+    },
+    
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    
+    
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITTLE": "RESTIC Back-end API",
+    "DESCRIPTION": "Your project description",
+    "VERSION": "1.0.0",
+    "SERVE INCLUDE SCHEMA": False,
+    
+    # OTHER SETTINGS
+    "AUTHENTICATION_WHITELIST": [
+        # Lista de autenticações suportadas na documentação
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    
+    "SWAGGER_UI_SETTINGS": {
+        "persistAuthorization": True, # Mantém a autorização no Swagger UI durante as requisições
+    }
 }
