@@ -24,7 +24,7 @@ from rest_framework.throttling import ScopedRateThrottle
 class ApiRoot(generics.GenericAPIView):
     name = "api-root"
     
-    def get(self, request, *agrs, **kwargs):
+    def get(self, request, *args, **kwargs):
         return Response(
             {
                 "drone-categories" : reverse("dronecategory-list", request=request),
@@ -37,10 +37,12 @@ class ApiRoot(generics.GenericAPIView):
 class DroneCategoryViewSet(viewsets.ModelViewSet):
     queryset = DronesCategory.objects.all()
     serializer_class = DroneCategorySerializer
+    #name = "dronecategory-list"
      # O 'name' não é necessário aqui porque o router gera os nomes automaticamente
      
     search_fields = ("^name",)
-    ordering_fields = ("name")
+    ordering_fields = ("name",)
+    filterset_fields = ("name",)
     
 class DroneList(generics.ListCreateAPIView):
     throttle_scope = "drones"

@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     
     # OpenAPI
     'drf_spectacular',
+    
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'UTC'
 
@@ -162,10 +164,10 @@ REST_FRAMEWORK = {
     ),
     
     "DEFAULT_THROTTLE_RATES":{
-        "anon": "3/hour",
-        "user": "10/hour",
-        "drones": "20/hour",
-        "pilots": "15/hour",
+        "anon": "300/hour",
+        "user": "100/hour",
+        "drones": "200/hour",
+        "pilots": "150/hour",
     },
     
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -189,3 +191,6 @@ SPECTACULAR_SETTINGS = {
         "persistAuthorization": True, # Mantém a autorização no Swagger UI durante as requisições
     }
 }
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

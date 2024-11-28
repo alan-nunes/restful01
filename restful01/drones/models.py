@@ -23,6 +23,9 @@ class Drone(models.Model):
         "auth.User", related_name="drones", on_delete=models.CASCADE
     )
     
+    picture = models.ImageField(upload_to="drones_images/", blank=True, null=True)
+    is_published = models.BooleanField(default=False)
+    
     class Meta:
         ordering = ("name",)
     

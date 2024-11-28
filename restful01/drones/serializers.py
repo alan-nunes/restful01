@@ -22,7 +22,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'pk',
             'username',
-            'drone'
+            'drones'
         )
         
 class DroneCategorySerializer(serializers.HyperlinkedModelSerializer):
@@ -84,7 +84,7 @@ class PilotCompetitonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Competition
         fields = (
-            "url",
+            #"url",
             "pk",
             "distance_in_feet",
             "distance_achievement_date",

@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.authtoken import views
+from restful01 import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Endpoint para gerar o token de autenticação
@@ -29,7 +31,14 @@ urlpatterns = [
     
    
     path('admin/', admin.site.urls),
-    path('', include('toys.urls')),
+    
+    #path('', include('toys.urls')),
     path("api/", include("drones.urls")),
+    
     path("auth/", include("rest_framework.urls")),
+    
+    path("", include("home.urls")),
 ]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
